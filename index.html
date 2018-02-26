@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>下拉</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all"/>
+    <style>
+        /* 下拉多选样式 需要引用*/
+        select[multiple]+.layui-form-select dd{ padding:0;}
+        select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary]{ margin:0 !important; display:block; line-height:36px !important; position:relative; padding-left:26px;}
+        select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary] span{line-height:36px !important; float:none;}
+        select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary] i{ position:absolute; left:10px; top:0; margin-top:9px;}
+        .multiSelect{ line-height:normal; height:auto; padding:4px 10px; overflow:hidden;min-height:38px; margin-top:-38px; left:0; z-index:99;position:relative;background:none;}
+        .multiSelect a{ padding:2px 5px; background:#908e8e; border-radius:2px; color:#fff; display:block; line-height:20px; height:20px; margin:2px 5px 2px 0; float:left;}
+        .multiSelect a span{ float:left;}
+        .multiSelect a i{ float:left; display:block; margin:2px 0 0 2px; border-radius:2px; width:8px; height:8px; background:url(close.png) no-repeat center; background-size:65%; padding:4px;}
+        .multiSelect a i:hover{ background-color:#545556;}
+
+        /* 下面是页面内样式，无需引用 */
+        .layui-block {
+            margin-bottom: 10px;
+        }
+
+        .layui-form-label {
+            width: 180px;
+        }
+        .code {
+            color: gray;
+            margin-left: 10px;
+        }
+        .unshow>#result {
+            display: none;
+        }
+        pre { padding: 5px; margin: 5px; }
+        .string { color: green; }
+        .number { color: darkorange; }
+        .boolean { color: blue; }
+        .null { color: magenta; }
+        .key { color: red; }
+    </style>
+</head>
+<body class="childrenBody" style="padding: 10px">
+<div class="layui-row">
+    <div class="layui-col-lg12">
+        <fieldset class="layui-elem-field  ">
+            <legend>基础属性</legend>
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>属性名</th>
+                    <th>属性值</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>multiple</td>
+                    <td>无</td>
+                    <td>开启多选</td>
+                </tr>
+                <tr>
+                    <td>lay-search</td>
+                    <td>无</td>
+                    <td>开启搜索</td>
+                </tr>
+                <tr>
+                    <td>lay-case</td>
+                    <td>无</td>
+                    <td>大小写敏感</td>
+                </tr>
+                <tr>
+                    <td>lay-omit</td>
+                    <td>无</td>
+                    <td>开启多选简写，显示勾选条数</td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <div class="layui-col-lg12 layui-col-md12">
+        <fieldset class="layui-elem-field">
+            <legend>单选select</legend>
+            <form class="layui-form">
+                <div class="layui-block">
+                    <label class="layui-form-label">单选</label>
+                    <div class="layui-input-inline">
+                        <select name="单选" lay-verify="required">
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option selected>sing2</option>
+                            <option>SING1-大写</option>
+                            <option>movie1</option>
+                            <option>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect lay-verify="required">
+                    </div>
+                </div>
+                <div class="layui-block">
+                    <label class="layui-form-label">单选+搜索+大小写不敏感</label>
+                    <div class="layui-input-inline">
+                        <select name="单选+搜索+大小写不敏感" lay-verify="required" lay-search>
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option selected>sing2</option>
+                            <option>SING1-大写</option>
+                            <option>movie1</option>
+                            <option>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect lay-verify="required" <span style="color: red">lay-search</span>>
+                    </div>
+                </div>
+
+                <div class="layui-block">
+                    <label class="layui-form-label">单选+搜索+大小写敏感</label>
+                    <div class="layui-input-inline">
+                        <select name="单选+搜索+大小写敏感" lay-verify="required" lay-search lay-case>
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option selected>sing2</option>
+                            <option>SING1-大写</option>
+                            <option>movie1</option>
+                            <option>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect lay-verify="required" <span style="color: red">lay-search</span> <span style="color: red">lay-case</span>>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <a class="layui-btn" lay-submit="" lay-filter="*">立即提交</a>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+
+    <div class="layui-col-lg12 layui-col-md12">
+        <fieldset class="layui-elem-field  ">
+            <legend>多选select</legend>
+            <form class="layui-form">
+                <div class="layui-block">
+                    <label class="layui-form-label">多选</label>
+                    <div class="layui-input-inline">
+                        <select name="多选" lay-verify="required" multiple>
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option value="sing2" selected>sing2</option>
+                            <option>SING1-大写</option>
+                            <option selected>movie1</option>
+                            <option>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect lay-verify="required" <span style="color: red">multiple</span>>
+                    </div>
+                </div>
+                <div class="layui-block">
+                    <label class="layui-form-label">简化多选</label>
+                    <div class="layui-input-inline">
+                        <select name="简化多选" lay-verify="required" multiple lay-omit>
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option value="sing2" selected>sing2</option>
+                            <option>SING1-大写</option>
+                            <option>movie1</option>
+                            <option>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect lay-verify="required" <span style="color: red">multiple</span> <span style="color: red">lay-omit</span>>
+                    </div>
+                </div>
+                <div class="layui-block">
+                    <label class="layui-form-label">多选+搜索+大小写不敏感</label>
+                    <div class="layui-input-inline">
+                        <select name="多选+搜索+大小写不敏感" lay-verify="required" multiple lay-search>
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option selected>sing2</option>
+                            <option>SING1-大写</option>
+                            <option>movie1</option>
+                            <option selected>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect lay-verify="required" <span style="color: red">multiple</span> <span style="color: red">lay-search</span>>
+                    </div>
+                </div>
+
+                <div class="layui-block">
+                    <label class="layui-form-label">简化多选+搜索+大小写敏感</label>
+                    <div class="layui-input-inline">
+                        <select name="简化多选+搜索+大小写敏感" lay-verify="required" multiple lay-search lay-case lay-omit>
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option >sing2</option>
+                            <option>SING1-大写</option>
+                            <option>movie1</option>
+                            <option>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect lay-verify="required" <span style="color: red">multiple</span> <span style="color: red">lay-search</span> <span style="color: red">lay-case</span> <span style="color: red">lay-omit</span>>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <a class="layui-btn" lay-submit="" lay-filter="*">立即提交</a>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+        <div class="layui-col-lg12 layui-col-md12">
+            <fieldset class="layui-elem-field">
+                <legend>赋值</legend>
+<pre class="layui-code">
+// 有两种赋值方式： 1. 直接在option中写selected。 2. 通过 js 赋值。
+
+// 1. 直接在option中写selected
+<select name="多选+搜索+大小写不敏感" lay-verify="required" multiple lay-search>
+    <option value="">请选择您的兴趣爱好</option>
+    <option>sing1</option>
+    <option selected>sing2</option>
+    <option>SING1-大写</option>
+    <option>movie1</option>
+    <option selected>movie2</option>
+    <option>movie3</option>
+    <option>MOVIE4</option>
+    <option>swim</option>
+    <option>moon</option>
+</select>
+
+// 2. 通过 js 赋值。
+<select name="简化多选+搜索+大小写敏感" lay-verify="required" multiple lay-search lay-case lay-omit>
+    <option value="">请选择您的兴趣爱好</option>
+    <option>sing1</option>
+    <option >sing2</option>
+    <option>SING1-大写</option>
+    <option>movie1</option>
+    <option>movie2</option>
+    <option>movie3</option>
+    <option>MOVIE4</option>
+    <option>swim</option>
+    <option>moon</option>
+</select>
+&ltscript>
+    // 手动赋值
+    $('select[name="简化多选+搜索+大小写敏感"]').val(['sing1', 'movie2']);
+    form.render();
+&lt/script>
+</pre>
+            </fieldset>
+        </div>
+    </div>
+
+</div>
+<div class="unshow">
+    <pre id="result">
+
+    </pre>
+</div>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script>
+    layui.use(['form','code'], function () {
+        var form = layui.form,
+            $ = layui.$;
+
+        layui.code({
+            title: 'html',
+            encode: true,
+            about: false
+
+        });
+
+        // 手动赋值
+        $('select[name="简化多选+搜索+大小写敏感"]').val(['sing1', 'movie2']);
+        form.render();
+
+        // 提交事件
+        form.on("submit(*)", function (data) {
+            $('#result').html(syntaxHighlight(data.field));
+            layer.open({
+                type: 1,
+                title: '提交信息',
+                shadeClose: true,
+                content:$('#result')
+            });
+            return false;
+        });
+
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+    })
+</script>
+</body>
+</html>
