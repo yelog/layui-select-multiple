@@ -29,7 +29,7 @@ select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary] i{ po
 
 ## 使用实例
 下面实例 开启了下拉多选（`multiple`）, 并开启了检索功能（`lay-search`）。
-效果可以参考上在线实例 的 `多选+搜索+大小写不敏感` 模块，
+效果可以参考 在线实例 的 `多选+搜索+大小写不敏感` 模块
 ```html
 <select name="多选+搜索+大小写不敏感" lay-verify="required" multiple lay-search>
     <option value="">请选择您的兴趣爱好</option>
@@ -44,7 +44,7 @@ select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary] i{ po
     <option>moon</option>
 </select>
 ```
-> **更多实例参考 在线实例、或 `index.html`。
+> **更多实例参考 在线实例、或 `index.html`。**
 
 ## 声明
 此项目基于 https://gitee.com/layuicms/XiaLaDuoXuan 项目修改得来，修复了一些bug，扩展了 简化多选、多选搜索、大小写敏感控制等功能。
