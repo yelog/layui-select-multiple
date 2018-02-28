@@ -344,7 +344,7 @@ layui.define('layer', function(exports){
                     }else{
                         var value = select.value
                     }
-                    var isSearchInput = typeof othis.attr('lay-search');
+                    var isSearchInput = typeof othis.attr('lay-search') != 'undefined';
 
                     if(typeof othis.attr('lay-ignore') === 'string') return othis.show();
 
