@@ -307,7 +307,7 @@ layui.define('layer', function(exports){
                             select.val(valueStr).removeClass('layui-form-danger');
                             layui.event.call(this, MOD_NAME, 'select('+ filter +')', {
                                 elem: select[0]
-                                ,valueStr: valueStr
+                                ,value: valueStr
                                 ,othis: reElem
                             });
                             that.hidePlaceholder(title,select);
