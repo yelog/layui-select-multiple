@@ -312,6 +312,7 @@
         var form = layui.form,
             $ = layui.$;
 
+        // 代码块
         layui.code({
             title: 'html',
             encode: true,
@@ -335,6 +336,7 @@
             return false;
         });
 
+        // json 格式化+高亮
         function syntaxHighlight(json) {
             if (typeof json != 'string') {
                 json = JSON.stringify(json, undefined, 2);
