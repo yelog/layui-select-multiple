@@ -156,9 +156,11 @@ layui.define('layer', function(exports){
                     //点击标题区域
                     title.on('click', function(e){
                         if(typeof select.attr('multiple') && typeof select.attr('multiple') === 'string') {
-                            if(!reElem.hasClass(CLASS + 'ed')){
-                                showDown();
-                            }
+                            reElem.hasClass(CLASS + 'ed') ? hideDown(true): showDown();
+                            dl.find(".layui-input").val("");
+                            setTimeout(function () {  // 直接写focus，会失败。。
+                                dl.find(".layui-input").focus();
+                            },500)
                         }else{
                             reElem.hasClass(CLASS + 'ed') ? (
                                 hideDown()
@@ -331,6 +333,11 @@ layui.define('layer', function(exports){
                             });
                         }
                     });
+                    dl.on('click', function (e) {
+                        if(typeof select.attr('multiple') && typeof select.attr('multiple') === 'string') {
+                            e.stopPropagation(); // 阻止事件冒泡，使下拉框长显示
+                        }
+                    })
                 }
 
                 selects.each(function(index, select){
