@@ -16,6 +16,7 @@
 1. 将项目中的 `form.js` 覆盖自己项目中的 `form.js`。
 2. 引入下面css
 ```css
+select[multiple]+.layui-form-select>.layui-select-title>input.layui-input{ border-bottom: 0}
 select[multiple]+.layui-form-select dd{ padding:0;}
 select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary]{ margin:0 !important; display:block; line-height:36px !important; position:relative; padding-left:26px;}
 select[multiple]+.layui-form-select .layui-form-checkbox[lay-skin=primary] span{line-height:36px !important; float:none;}
