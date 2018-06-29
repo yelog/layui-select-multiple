@@ -338,6 +338,20 @@ layui.define('layer', function(exports){
                             e.stopPropagation(); // 阻止事件冒泡，使下拉框长显示
                         }
                     })
+
+                    // 全选、取消、反选
+                    dl.find('.multiOption').on('click', function (e) {
+                        switch ($(this).data('value')) {
+                            case 'all' :
+                                dl.find('[type=checkbox]:not(:checked)').siblings('.layui-form-checkbox').trigger('click');break;
+                            case 'none':
+                                dl.find('[type=checkbox]:checked').siblings('.layui-form-checkbox').trigger('click');break;
+                            case 'inverse':
+                                dl.find('[type=checkbox]').siblings('.layui-form-checkbox').trigger('click');break;
+                        }
+
+                        e.stopPropagation(); // 阻止事件冒泡，使下拉框长显示
+                    })
                 }
 
                 selects.each(function(index, select){
@@ -393,9 +407,9 @@ layui.define('layer', function(exports){
                                 layui.each(options, function (index, item) {
                                     if (index === 0 && !item.value) {
                                         if (isSearchInput) {
-                                            arr.push('<dd lay-value="" class="layui-select-tips" style="padding-right: 10px; margin-bottom: 5px;"><input class="layui-input" placeholder="关键字搜索"></dd>');
+                                            arr.push('<dd lay-value="" class="layui-select-tips" style="padding-right: 10px; margin-bottom: 5px;"><input class="layui-input" placeholder="关键字搜索"></dd><dd class="layui-select-tips"><div class="multiOption" data-value="all"><i class="layui-icon">&#xe60c;</i>全选</div><div class="multiOption" data-value="none"><i class="layui-icon">&#xe60c;</i>清空</div><div class="multiOption" data-value="inverse"><i class="layui-icon">&#xe60c;</i>反选</div></dd>');
                                         } else {
-                                            arr.push('<dd lay-value="" class="layui-select-tips">' + (item.innerHTML || TIPS) + '</dd>');
+                                            arr.push('<dd lay-value="" class="layui-select-tips"><div class="multiOption" data-value="all"><i class="layui-icon">&#xe60c;</i>全选</div><div class="multiOption" data-value="none"><i class="layui-icon">&#xe60c;</i>清空</div><div class="multiOption" data-value="inverse"><i class="layui-icon">&#xe60c;</i>反选</div></dd>');
                                         }
                                     }else {
                                         if (index ===1 && isSearchInput) {
