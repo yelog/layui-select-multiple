@@ -366,6 +366,7 @@ layui.define('layer', function(exports){
                         var value = select.value
                     }
                     var isSearchInput = typeof othis.attr('lay-search') != 'undefined';
+                    var isTools = typeof othis.attr('lay-tools') != 'undefined';
 
                     if(typeof othis.attr('lay-ignore') === 'string') return othis.show();
 
@@ -402,18 +403,24 @@ layui.define('layer', function(exports){
                                 }
                                 return aLists.join('');
                             }(othis.find('*')) + '<i class="layui-edge"></i></div>'
-                            , '<dl class="layui-anim layui-anim-upbit' + (othis.find('optgroup')[0] ? ' layui-select-group' : '') + '" '+ (isSearchInput?'style="overflow-y: hidden;padding: 5px 0px 0px;"':'') +'>' + function (options) {
-                                var arr = [];
+                            , '<dl class="layui-anim layui-anim-upbit' + (othis.find('optgroup')[0] ? ' layui-select-group' : '') + '" '+ ((isSearchInput || isTools)?'style="overflow-y: hidden;"':'') +'>' + function (options) {
+                                var arr = [], height=247 ,tools = '<dd lay-value="" class="layui-select-tips"><div class="multiOption" data-value="all"><i class="iconfont icon-quanxuan"></i>全选</div><div class="multiOption" data-value="none"><i class="iconfont icon-qingkong"></i>清空</div><div class="multiOption" data-value="inverse"><i class="iconfont icon-fanxuan"></i>反选</div></dd>';
                                 layui.each(options, function (index, item) {
                                     if (index === 0 && !item.value) {
                                         if (isSearchInput) {
-                                            arr.push('<dd lay-value="" class="layui-select-tips" style="padding-right: 10px; margin-bottom: 5px;"><input class="layui-input" placeholder="关键字搜索"></dd><dd class="layui-select-tips"><div class="multiOption" data-value="all"><i class="layui-icon">&#xe60c;</i>全选</div><div class="multiOption" data-value="none"><i class="layui-icon">&#xe60c;</i>清空</div><div class="multiOption" data-value="inverse"><i class="layui-icon">&#xe60c;</i>反选</div></dd>');
+                                            arr.push('<dd lay-value="" class="layui-select-tips" style="padding-right: 10px; margin-bottom: 5px;"><input class="layui-input" placeholder="关键字搜索"></dd>');
+                                            if (isTools) {
+                                                arr.push(tools);
+                                                height -= 37;
+                                            }
+                                        } else if (isTools) {
+                                            arr.push(tools);
                                         } else {
-                                            arr.push('<dd lay-value="" class="layui-select-tips"><div class="multiOption" data-value="all"><i class="layui-icon">&#xe60c;</i>全选</div><div class="multiOption" data-value="none"><i class="layui-icon">&#xe60c;</i>清空</div><div class="multiOption" data-value="inverse"><i class="layui-icon">&#xe60c;</i>反选</div></dd>');
+                                            arr.push('<dd lay-value="" class="layui-select-tips">' + (item.innerHTML || TIPS) + '</dd>');
                                         }
-                                    }else {
-                                        if (index ===1 && isSearchInput) {
-                                            arr.push('<div  style="max-height: 247px; overflow-y: auto" >')
+                                    } else {
+                                        if (index ===1 && (isSearchInput || isTools)) {
+                                            arr.push('<div  style="max-height: '+height+'px; overflow-y: auto" >')
                                         }
                                         if(value != null && value != undefined && value.length != 0) {
                                             for (var checkedVal = 0; checkedVal < value.length; checkedVal++) {
@@ -427,7 +434,7 @@ layui.define('layer', function(exports){
                                     }
                                 });
                                 arr.length === 0 && arr.push('<dd lay-value="" class="' + DISABLED + '">没有选项</dd>');
-                                if (isSearchInput) {
+                                if (isSearchInput || isTools) {
                                     arr.join("</div>");
                                 }
                                 return arr.join('');
