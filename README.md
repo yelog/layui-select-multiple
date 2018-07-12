@@ -13,7 +13,7 @@
 | lay-case | 无 | 大小写敏感 |
 | lay-omit | 无 | 开启多选简写，显示勾选条数 |
 ## 使用
-1. 将项目中的 `form1.js` 覆盖自己项目中的 `form1.js`。
+1. 将项目中的 `form.js` 覆盖自己项目中的 `form.js`。
 2. 引入下面css
 ```css
 select[multiple]+.layui-form-select>.layui-select-title>input.layui-input{ border-bottom: 0}
