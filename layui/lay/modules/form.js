@@ -396,6 +396,7 @@ layui.define('layer', function(exports){
                                     elem: select[0]
                                     ,value: valueStr
                                     ,othis: reElem
+                                    ,current_value: value
                                 });
                                 that.hidePlaceholder(title,select);
                             } else {
@@ -457,6 +458,7 @@ layui.define('layer', function(exports){
                                         elem: select[0]
                                         ,value: valueStr
                                         ,othis: reElem
+                                        ,current_value: _this.siblings("span").text()
                                     });
                                 }
                             });
