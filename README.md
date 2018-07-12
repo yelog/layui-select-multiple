@@ -1,9 +1,10 @@
 ## 为 layui 扩展的 下拉多选select
+当前layui版本：**2.3.0** （2.2.5版本可在release中找到）  
 在线demo： [http://yelog.org/layui-select-multiple/](http://yelog.org/layui-select-multiple/)
 
 这个在线 demo就是本项目的 `index.html`。 可将项目 `clone` 到本地查看效果。
 ## 效果图
-![效果](http://oncj6b2vl.bkt.clouddn.com/Frg6VGOCjKJ8fdTYkekfsi-Ax9p2.png)
+![效果](http://oncj6b2vl.bkt.clouddn.com/FjNTC1ToZP0X0e7WbFZao4Cwc9B8.png)
 
 ## 参数
 | 属性名 | 属性值 | 备注 |
