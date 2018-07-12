@@ -370,11 +370,45 @@
             </form>
         </fieldset>
     </div>
+    <div class="layui-col-lg12 layui-col-md12">
+        <fieldset class="layui-elem-field  ">
+            <legend>事件监听</legend>
+            <form class="layui-form">
+                <div class="layui-block">
+                    <label class="layui-form-label">多选</label>
+                    <div class="layui-input-inline">
+                        <select name="多选" multiple lay-filter="multi">
+                            <option value="">请选择您的兴趣爱好</option>
+                            <option>sing1</option>
+                            <option selected>sing2</option>
+                            <option>SING1-大写</option>
+                            <option>movie1</option>
+                            <option selected>movie2</option>
+                            <option>movie3</option>
+                            <option>MOVIE4</option>
+                            <option>swim</option>
+                            <option>moon</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline code">
+                        &ltselect <span style="color: red">multiple lay-filter='multi'</span>>
+                    </div>
+                    <pre class="layui-code">
+form.on('select(multi)', function (data) { // 打开控制台查看效果
+    onsole.log(data.elem); //得到select原始DOM对象
+    console.log(data.value); //得到被选中的值（数组类型）
+    console.log(data.othis); //得到美化后的DOM对象
+})
+                    </pre>
+                </div>
+            </form>
+        </fieldset>
+    </div>
 
     <div class="layui-col-lg12 layui-col-md12">
         <fieldset class="layui-elem-field">
             <legend>赋值</legend>
-<pre class="layui-code">
+            <pre class="layui-code">
 // 有两种赋值方式： 1. 直接在option中写selected。 2. 通过 js 赋值。
 
 // 1. 直接在option中写selected
@@ -436,6 +470,12 @@
         // 手动赋值
         $('select[name="简化多选+搜索+大小写敏感"]').val(['sing1', 'movie2']);
         form.render();
+
+        form.on('select(multi)', function (data) {
+            console.log(data.elem); //得到select原始DOM对象
+            console.log(data.value); //得到被选中的值
+            console.log(data.othis); //得到美化后的DOM对象
+        })
 
         // 提交事件
         form.on("submit(*)", function (data) {
