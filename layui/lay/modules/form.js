@@ -306,10 +306,11 @@ layui.define('layer', function(exports){
                         //检测值是否不属于 select 项
                         var notOption = function(value, callback, origin){
                             var num = 0;
+                            var ignoreCase =  typeof(select.attr("lay-case"))=="undefined"; // 忽略大小写
                             layui.each(dds, function(){
                                 var othis = $(this)
                                     ,text = othis.text()
-                                    ,not = text.indexOf(value) === -1;
+                                    ,not = ignoreCase?text.toLowerCase().indexOf(value.toLowerCase()) === -1 : text.indexOf(value) === -1;
                                 if(value === '' || (origin === 'blur') ? value !== text : not) num++;
                                 origin === 'keyup' && othis[not ? 'addClass' : 'removeClass'](HIDE);
                             });
@@ -341,18 +342,22 @@ layui.define('layer', function(exports){
                             }
                         };
 
-                        if(!isMulti && isSearch){
-                            input.on('keyup', search).on('blur', function(e){
-                                var selectedIndex = select[0].selectedIndex;
-                                thatInput = input; //当前的 select 中的 input 元素
-                                var cur_option = $(select[0].options[selectedIndex])
-                                initValue = cur_option.attr('value') == '' ? '' : cur_option.html(); //重新获得初始选中值
-                                setTimeout(function(){
-                                    notOption(input.val(), function(none){
-                                        initValue || input.val(''); //none && !initValue
-                                    }, 'blur');
-                                }, 200);
-                            });
+                        if (isSearch) {
+                            if (isMulti) {
+                                input.on('keyup', search)
+                            } else {
+                                input.on('keyup', search).on('blur', function(e){
+                                    var selectedIndex = select[0].selectedIndex;
+                                    thatInput = input; //当前的 select 中的 input 元素
+                                    var cur_option = $(select[0].options[selectedIndex])
+                                    initValue = cur_option.attr('value') == '' ? '' : cur_option.html(); //重新获得初始选中值
+                                    setTimeout(function(){
+                                        notOption(input.val(), function(none){
+                                            initValue || input.val(''); //none && !initValue
+                                        }, 'blur');
+                                    }, 200);
+                                });
+                            }
                         }
 
                         //选择
