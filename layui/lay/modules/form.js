@@ -372,7 +372,7 @@ layui.define('layer', function(exports){
                                 var valueStr = select.val() || [];
                                 if(othis.find("input[type='checkbox']").is(':checked')){
                                     if (omit) {
-                                        multiSelect.html(multiSelect.html() + "<a href='javascript:;'><span>"+othis.find("span").text()+"</span><i></i></a>");
+                                        multiSelect.html(multiSelect.html() + "<a href='javascript:;'><span lay-value='"+othis.attr('lay-value')+"'>"+othis.find("span").text()+"</span><i></i></a>");
                                     } else {
                                         input.eq(0).val("已选择"+othis.parent().find('[type=checkbox]:checked').length+"条");
                                     }
@@ -380,7 +380,7 @@ layui.define('layer', function(exports){
                                 }else{
                                     if (omit) {
                                         multiSelect.find("a").each(function(){
-                                            if($(this).find("span").text() == othis.find("span").text()){
+                                            if($(this).find("span").attr('lay-value') == othis.attr('lay-value')){
                                                 $(this).remove();
                                                 valueStr.removeElem(value);
                                             }
@@ -454,7 +454,7 @@ layui.define('layer', function(exports){
                             var _this = $(this);
                             e.stopPropagation();
                             title.find("dd").each(function(){
-                                if($(this).find("span").text() == _this.siblings("span").text()){
+                                if($(this).attr('lay-value') == _this.siblings("span").attr('lay-value')){
                                     $(this).find("input").removeAttr("checked");
                                     $(this).find(".layui-form-checkbox").removeClass("layui-form-checked");
                                     valueStr.removeElem($(this).attr("lay-value"));
@@ -499,19 +499,20 @@ layui.define('layer', function(exports){
                                 if(typeof $(select).attr("lay-omit")==='undefined' && value != null && value != undefined && value.length != 0){
                                     for(var aList = 0;aList<value.length;aList++){
                                         if(value[aList]){
-                                            var chooseText = '';
+                                            var chooseText = '', chooseValue = '';
                                             $(select).find('option').each(function (i, ele) {
                                                 if (typeof $(this).attr('value') == 'undefined') {
                                                     if ($(this).text() == value[aList]) {
-                                                        chooseText = $(this).text();
+                                                        chooseText = chooseValue = $(this).text();
                                                         return false;
                                                     }
                                                 } else if ($(this).attr('value') == value[aList]) {
                                                     chooseText = $(this).text();
+                                                    chooseValue = $(this).attr('value');
                                                     return false;
                                                 }
                                             });
-                                            aLists.push("<a href='javascript:;'><span>"+chooseText+"</span><i></i></a>")
+                                            aLists.push("<a href='javascript:;'><span lay-value='"+chooseValue+"'>"+chooseText+"</span><i></i></a>")
                                         }
                                     }
                                 }
