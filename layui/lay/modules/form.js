@@ -438,15 +438,54 @@ layui.define('layer', function(exports){
                         dl.find('.multiOption').on('click', function (e) {
                             switch ($(this).data('value')) {
                                 case 'all' :
-                                    dl.find('[type=checkbox]:not(:checked)').siblings('.layui-form-checkbox').trigger('click');break;
+                                    dl.find('[type=checkbox]:not(:checked)').prop('checked', true);
+                                    select.children('option[value!=""]').prop('selected', true)
+                                    handleMultiOption();
+                                    break;
                                 case 'none':
-                                    dl.find('[type=checkbox]:checked').siblings('.layui-form-checkbox').trigger('click');break;
+                                    dl.find('[type=checkbox]:checked').prop('checked', false);
+                                    select.children('option[value!=""]').prop('selected', false);
+                                    handleMultiOption();
+                                    break;
                                 case 'inverse':
-                                    dl.find('[type=checkbox]').siblings('.layui-form-checkbox').trigger('click');break;
+                                    var checkedBox = dl.find('[type=checkbox]:checked');
+                                    dl.find('[type=checkbox]:not(:checked)').prop('checked', true);
+                                    checkedBox.prop('checked', false)
+
+                                    var selectedOption = select.children('option[value!=""]:not(:selected)')
+                                    select.children('option[value!=""]:selected').prop('selected', false)
+                                    selectedOption.prop('selected', true)
+                                    handleMultiOption();
+                                    break;
                             }
 
                             e.stopPropagation(); // 阻止事件冒泡，使下拉框长显示
                         });
+
+                        function handleMultiOption () {
+
+                            form.render('checkbox');
+                            var valueStr = select.val() || [];
+                            if (omit) {
+                                var options = [];
+                                var selectedOption = select.children('option:selected');
+                                for (var i = 0; i < selectedOption.length; i++) {
+                                    options.push("<a href='javascript:;'><span lay-value='"+(selectedOption[i].value||selectedOption[i].text)+"'>"+selectedOption[i].text+"</span><i></i></a>");
+                                }
+                                multiSelect.html(options.join(''));
+                            } else {
+                                input.eq(0).val("已选择"+select.children('option:selected').length+"条");
+                            }
+
+                            select.removeClass('layui-form-danger');
+                            layui.event.call(this, MOD_NAME, 'select('+ filter +')', {
+                                elem: select[0]
+                                ,value: valueStr
+                                ,othis: reElem
+                                ,current_value: ''
+                            });
+                            that.hidePlaceholder(title,select);
+                        }
 
                         //多选删除
                         title.delegate(".multiSelect a i","click",function(e){
