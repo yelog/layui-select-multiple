@@ -465,16 +465,15 @@ layui.define('layer', function(exports){
                         function handleMultiOption () {
 
                             form.render('checkbox');
-                            var valueStr = select.val() || [];
+                            var valueStr = select.val() || [], selectedOption = select.children('option:selected');;
                             if (omit) {
                                 var options = [];
-                                var selectedOption = select.children('option:selected');
                                 for (var i = 0; i < selectedOption.length; i++) {
                                     options.push("<a href='javascript:;'><span lay-value='"+(selectedOption[i].value||selectedOption[i].text)+"'>"+selectedOption[i].text+"</span><i></i></a>");
                                 }
                                 multiSelect.html(options.join(''));
                             } else {
-                                input.eq(0).val("已选择"+select.children('option:selected').length+"条");
+                                input.eq(0).val(selectedOption.length==0?"":"已选择"+selectedOption.length+"条");
                             }
 
                             select.removeClass('layui-form-danger');
