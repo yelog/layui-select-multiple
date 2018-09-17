@@ -465,7 +465,9 @@ layui.define('layer', function(exports){
                         function handleMultiOption () {
 
                             form.render('checkbox');
-                            var valueStr = select.val() || [], selectedOption = select.children('option:selected');;
+                            var valueStr = select.val() || [],
+                                selectedOption = select.children('option:selected'),
+                                filter = select.attr('lay-filter');
                             if (omit) {
                                 var options = [];
                                 for (var i = 0; i < selectedOption.length; i++) {
